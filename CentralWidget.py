@@ -1,14 +1,24 @@
-from PyQt6.QtWidgets import QWidget, QSlider, QTextEdit
+from PyQt6.QtWidgets import QWidget, QSlider, QTextBrowser, QHBoxLayout
 
 
 class CentralWidget(QWidget):
     def __init__(self, parent=None):
         super(CentralWidget, self).__init__(parent)
 
-        slider = QSlider(self)
-        slider.setRange(50, 75)
-        slider.setValue(60)
+        self.text_edit = QTextBrowser(self)
+        self.text_edit.setText("Started app")
 
-        text_edit = QTextEdit(self)
+        self.slider = QSlider(self)
+        self.slider.setRange(50, 75)
+        self.slider.setValue(60)
+        self.slider.valueChanged.connect(self.append_text)
 
+        layout = QHBoxLayout(self)
+        layout.addWidget(self.slider)
+        layout.addWidget(self.text_edit)
 
+        self.setLayout(layout)
+
+    def append_text(self, value_as_int):
+        text = "Value changed: " + str(value_as_int)
+        self.text_edit.append(text)
