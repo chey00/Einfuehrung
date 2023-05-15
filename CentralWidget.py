@@ -1,4 +1,5 @@
-from PyQt6.QtWidgets import QWidget, QSlider, QTextBrowser, QHBoxLayout
+from PyQt6.QtWidgets import QWidget, QSlider, QHBoxLayout, QTextBrowser
+from PyQt6.QtCore import pyqtSlot
 
 
 class CentralWidget(QWidget):
@@ -19,6 +20,7 @@ class CentralWidget(QWidget):
 
         self.setLayout(layout)
 
-    def append_text(self, value_as_int):
+    @pyqtSlot(int)
+    def append_text(self, value_as_int: int):
         text = "Value changed: " + str(value_as_int)
         self.text_edit.append(text)
